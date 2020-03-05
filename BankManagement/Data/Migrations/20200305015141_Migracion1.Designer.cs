@@ -4,14 +4,16 @@ using BankManagement.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace BankManagement.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20200305015141_Migracion1")]
+    partial class Migracion1
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -98,35 +100,6 @@ namespace BankManagement.Data.Migrations
                     b.HasIndex("ClienteID");
 
                     b.ToTable("Cuentas");
-                });
-
-            modelBuilder.Entity("BankManagement.Models.Tarjeta", b =>
-                {
-                    b.Property<int>("TarjetaID")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<int>("CVV")
-                        .HasColumnType("int");
-
-                    b.Property<int>("ClienteID")
-                        .HasColumnType("int");
-
-                    b.Property<bool>("Estado")
-                        .HasColumnType("bit");
-
-                    b.Property<int>("Numero_Tarjeta")
-                        .HasColumnType("int");
-
-                    b.Property<string>("Tipo_Tarjetas")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("TarjetaID");
-
-                    b.HasIndex("ClienteID");
-
-                    b.ToTable("Tarjetas");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>
@@ -343,15 +316,6 @@ namespace BankManagement.Data.Migrations
                 });
 
             modelBuilder.Entity("BankManagement.Models.Cuenta", b =>
-                {
-                    b.HasOne("BankManagement.Models.Cliente", "Client")
-                        .WithMany()
-                        .HasForeignKey("ClienteID")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-                });
-
-            modelBuilder.Entity("BankManagement.Models.Tarjeta", b =>
                 {
                     b.HasOne("BankManagement.Models.Cliente", "Client")
                         .WithMany()

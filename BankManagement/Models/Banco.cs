@@ -13,10 +13,10 @@ public class Banco
 
     public decimal Capital { get; set; }
 
-    [Display(Name = "Nombre de clients")]
+    [Display(Name = "Numero de cliente")]
     public int NbrClients { get; set; }
 
-    [Display(Name = "Nombre de comptes")]
+    [Display(Name = "Numero de banco")]
     public int NbrComptes { get; set; }
 
     [Display(Name = "Nombre de crédits")]

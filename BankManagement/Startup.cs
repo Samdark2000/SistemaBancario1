@@ -34,6 +34,9 @@ namespace BankManagement
                 .AddEntityFrameworkStores<ApplicationDbContext>();
             services.AddControllersWithViews();
             services.AddRazorPages();
+
+            var conexion = Configuration.GetConnectionString("DefaultConnection");
+            services.AddDbContext<ApplicationDbContext>(options => options.UseSqlServer(conexion)); 
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

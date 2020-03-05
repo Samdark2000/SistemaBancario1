@@ -1,6 +1,6 @@
 ﻿using System;
 using System.ComponentModel.DataAnnotations;
-
+using System.Collections.Generic;
 namespace BankManagement.Models
 
 {
@@ -14,10 +14,10 @@ namespace BankManagement.Models
     public class Cuenta
     {
        [Key]
-        public int CompteId { get; set; }
+        public int CuentaID { get; set; }
 
-        [Display(Name = "Cliente")]
-        public int ClientId { get; set; }
+        [Display(Name = "Nombre del cliente:")]
+        public int ClienteID { get; set; }
 
         public TypeCompte? Type { get; set; }
 
@@ -32,7 +32,7 @@ namespace BankManagement.Models
         //public virtual Banque Banque { get; set; }
         public virtual Cliente Client { get; set; }
        // public virtual ICollection<Operation> Operations { get; set; }
-       // public virtual ICollection<Credit> Credits { get; set; }
+        public virtual ICollection<Credit> Credits { get; set; }
     }
 
 }
