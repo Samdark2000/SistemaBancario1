@@ -7,8 +7,30 @@ a.navbar-brand {
   word-break: break-all;
 }
 
-/* Provide sufficient contrast against white background */
-a {
+
+.imgSlider {
+    max-width: 70%;
+}
+
+.sheetSlider {
+    background-color: #ffffff;
+    text-align: center;
+}
+
+.sh__meta span, .sh__meta h4 {
+    color: #ffffff;
+}
+
+.imglogo {
+    max-width 20%
+}
+
+.navbar-brand{
+    max-width 10%
+}
+
+    /* Provide sufficient contrast against white background */
+    a {
   color: #0366d6;
 }
 
