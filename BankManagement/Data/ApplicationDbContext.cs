@@ -12,5 +12,7 @@ namespace BankManagement.Data
             : base(options)
         {
         }
+
+        
     }
 }
