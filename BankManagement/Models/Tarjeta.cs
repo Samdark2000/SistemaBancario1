@@ -10,10 +10,10 @@ namespace BankManagement.Models
     {
         [Key]
         public int TarjetaID { get; set; }
-        [CreditCard]
+        //[CreditCard]
         [Display(Name ="Numero de Tarjeta")]
         public int Numero_Tarjeta {get; set;}
-
+        [Display(Name = "Nombre del cliente")]
         public int ClienteID { get; set; }
         [Display(Name = "Tipo de tarjeta")]
         public string Tipo_Tarjetas { get; set; }
@@ -21,7 +21,7 @@ namespace BankManagement.Models
         public int CVV { get; set; }
 
         public Boolean Estado { get; set; } = true;
-
+        [Display(Name = "Cliente")]
         public virtual Cliente Client { get; set; }
     }
 }

@@ -19,9 +19,9 @@
     };
 }
 
-<h1>Create</h1>
+<h1>Crear Tarjeta de credito</h1>
 
-<h4>Tarjeta</h4>
+
 <hr />
 <div class="row">
     <div class="col-md-4">
@@ -38,8 +38,10 @@
             </div>
             <div class="form-group">
                 <label asp-for="Tipo_Tarjetas" class="control-label"></label>
-                 @Html.DropDownList("Seleccione una tarjeta", lista)
-                <span asp-validation-for="Tipo_Tarjetas" class="text-danger"></span>
+                
+                    @Html.DropDownList("Seleccione una tarjeta", lista)
+                    <span asp-validation-for="Tipo_Tarjetas" class="text-danger"></span>
+                
             </div>
             <div class="form-group">
                 <label asp-for="CVV" class="control-label"></label>
@@ -48,18 +50,18 @@
             </div>
             <div class="form-group form-check">
                 <label class="form-check-label">
-                    <input class="form-check-input" asp-for="Estado" /> @Html.DisplayNameFor(model => model.Estado)
+                    <input asp-for="Estado" /> @Html.DisplayNameFor(model => model.Estado)
                 </label>
             </div>
             <div class="form-group">
-                <input type="submit" value="Create" class="btn btn-primary" />
+                <input type="submit" value="Crear" class="btn btn-primary" />
             </div>
         </form>
     </div>
 </div>
 
 <div>
-    <a asp-action="Index">Back to List</a>
+    <a asp-action="Index">Volver a la lista</a>
 </div>
 
 @section Scripts {
