@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\Roman Ariel\\source\\repos\\Proyectico\\Proyectico.csproj": {}
+    "C:\\Users\\Roman Ariel\\source\\repos\\SistemaBancario2\\Proyectico\\Proyectico.csproj": {}
   },
   "projects": {
-    "C:\\Users\\Roman Ariel\\source\\repos\\Proyectico\\Proyectico.csproj": {
+    "C:\\Users\\Roman Ariel\\source\\repos\\SistemaBancario2\\Proyectico\\Proyectico.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\Roman Ariel\\source\\repos\\Proyectico\\Proyectico.csproj",
+        "projectUniqueName": "C:\\Users\\Roman Ariel\\source\\repos\\SistemaBancario2\\Proyectico\\Proyectico.csproj",
         "projectName": "Proyectico",
-        "projectPath": "C:\\Users\\Roman Ariel\\source\\repos\\Proyectico\\Proyectico.csproj",
+        "projectPath": "C:\\Users\\Roman Ariel\\source\\repos\\SistemaBancario2\\Proyectico\\Proyectico.csproj",
         "packagesPath": "C:\\Users\\Roman Ariel\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\Roman Ariel\\source\\repos\\Proyectico\\obj\\",
+        "outputPath": "C:\\Users\\Roman Ariel\\source\\repos\\SistemaBancario2\\Proyectico\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
@@ -58,6 +58,10 @@
               "version": "[3.1.1, )"
             },
             "Microsoft.EntityFrameworkCore.Tools": {
+              "target": "Package",
+              "version": "[3.1.1, )"
+            },
+            "Microsoft.VisualStudio.Web.CodeGeneration.Design": {
               "target": "Package",
               "version": "[3.1.1, )"
             }
