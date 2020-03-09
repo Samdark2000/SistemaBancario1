@@ -21,11 +21,11 @@ a.navbar-brand {
 }
 
 .imglogo {
-    max-width 20%
+    max-width :20%
 }
 
 .navbar-brand {
-    max-width 10%
+    max-width :10%
 }
 
 /* Provide sufficient contrast against white background */
