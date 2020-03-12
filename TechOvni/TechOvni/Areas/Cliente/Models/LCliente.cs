@@ -49,5 +49,19 @@ namespace TechOvni.Areas.Cliente.Models
 
             return identityError;
         }
+        public List<TCliente> getTCliente(string valor)
+        {
+            List<TCliente> listCategoria;
+
+            if (valor == null)
+            {
+                listCategoria = context._TCliente.ToList();
+            }
+            else
+            {
+                listCategoria = context._TCliente.Where(c => c.Nombre.StartsWith(valor)).ToList();
+            }
+            return listCategoria;
+        }
     }
 }

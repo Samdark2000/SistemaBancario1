@@ -18,6 +18,14 @@ a.navbar-brand {
     max-width :10%
 }
 
+.hidden {
+    visibility: hidden;
+    width: 0px;
+    height: 0px;
+
+    /*Ocultar Campos*/
+}
+
 
 .social {
     position: fixed; /* Hacemos que la posición en pantalla sea fija para que siempre se muestre en pantalla*/
