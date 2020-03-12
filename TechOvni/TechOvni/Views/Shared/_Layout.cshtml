@@ -28,26 +28,9 @@
                         <li class="nav-item">
                             <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">  Home  </a>
                         </li>
-
-
-                        @if (SignInManager.IsSignedIn(User))
-                        {
-                            <li class="nav-item">
-                                <a class="nav-link text-dark" asp-area="Cliente" asp-controller="Cliente" asp-action="Cliente">Usuario</a>
-                            </li>
-
-                            <li class="nav-item">
-                                <a class="nav-link text-dark" asp-area="Tarjetas" asp-controller="Tarjetas" asp-action="Tarjetas">Tarjetas</a>
-                            </li>
-                        }
-                        else
-                        {
-                            <li class="nav-item">
-                                <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">About</a>
-                            </li>
-                        }
-
-
+                        <li class="nav-item">
+                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">  Privacy</a>
+                        </li>
                     </ul>
                 </div>
             </div>
@@ -61,7 +44,7 @@
 
     <footer class="border-top footer text-muted">
         <div class="container">
-            &copy; 2020 - TechOvni - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+            &copy; 2020 - TechOvni - <a asp-area="" asp-controller="Home" asp-action="Privacy">Personal</a>
         </div>
     </footer>
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
