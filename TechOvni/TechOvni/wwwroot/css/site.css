@@ -16,6 +16,12 @@ a.navbar-brand {
     text-align: center;
 }
 
+.hidden {
+    visibility: hidden;
+    height: 0px;
+    width: 0px;
+}
+
 .sh__meta span, .sh__meta h4 {
     color: #ffffff;
 }

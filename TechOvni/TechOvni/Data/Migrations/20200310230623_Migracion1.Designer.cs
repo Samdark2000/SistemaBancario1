@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using TechOvni.Data;
 
 namespace TechOvni.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20200310230623_Migracion1")]
+    partial class Migracion1
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -219,91 +221,6 @@ namespace TechOvni.Data.Migrations
                     b.ToTable("AspNetUserTokens");
                 });
 
-            modelBuilder.Entity("TechOvni.Areas.Cliente.Models.TCliente", b =>
-                {
-                    b.Property<int>("ClienteID")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<string>("Apellido")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Cedula")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Direccion")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<bool>("Estado")
-                        .HasColumnType("bit");
-
-                    b.Property<string>("Nombre")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("NumeroCuenta")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Telefono")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("ClienteID");
-
-                    b.ToTable("_TCliente");
-                });
-
-            modelBuilder.Entity("TechOvni.Areas.Cuenta.Models.TCuenta", b =>
-                {
-                    b.Property<int>("CuentaID")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<int>("ClienteID")
-                        .HasColumnType("int");
-
-                    b.Property<int>("TarjetaID")
-                        .HasColumnType("int");
-
-                    b.HasKey("CuentaID");
-
-                    b.HasIndex("ClienteID");
-
-                    b.HasIndex("TarjetaID");
-
-                    b.ToTable("_TCuenta");
-                });
-
-            modelBuilder.Entity("TechOvni.Areas.Tarjeta.Models.Ttarjetas", b =>
-                {
-                    b.Property<int>("TarjetaID")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<int>("CVV")
-                        .HasColumnType("int");
-
-                    b.Property<DateTime>("DateOuverture")
-                        .HasColumnType("datetime2");
-
-                    b.Property<int>("Num_Tarjeta")
-                        .HasColumnType("int");
-
-                    b.Property<bool>("estado")
-                        .HasColumnType("bit");
-
-                    b.HasKey("TarjetaID");
-
-                    b.ToTable("_Ttarjeta");
-                });
-
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
                 {
                     b.HasOne("Microsoft.AspNetCore.Identity.IdentityRole", null)
@@ -351,21 +268,6 @@ namespace TechOvni.Data.Migrations
                     b.HasOne("Microsoft.AspNetCore.Identity.IdentityUser", null)
                         .WithMany()
                         .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-                });
-
-            modelBuilder.Entity("TechOvni.Areas.Cuenta.Models.TCuenta", b =>
-                {
-                    b.HasOne("TechOvni.Areas.Cliente.Models.TCliente", "cliente")
-                        .WithMany("cuenta")
-                        .HasForeignKey("ClienteID")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("TechOvni.Areas.Tarjeta.Models.Ttarjetas", "tarjeta")
-                        .WithMany("cuenta")
-                        .HasForeignKey("TarjetaID")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });

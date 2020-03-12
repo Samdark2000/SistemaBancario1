@@ -32,8 +32,16 @@ namespace TechOvni
                     Configuration.GetConnectionString("DefaultConnection")));
             services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true)
                 .AddEntityFrameworkStores<ApplicationDbContext>();
+
+            services.AddMvc().AddMvcOptions(options =>
+            {
+                options.EnableEndpointRouting = false;
+            });
+
             services.AddControllersWithViews();
             services.AddRazorPages();
+
+        
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -58,12 +66,25 @@ namespace TechOvni
             app.UseAuthentication();
             app.UseAuthorization();
 
-            app.UseEndpoints(endpoints =>
+            //app.UseEndpoints(endpoints =>
+            //{
+            //    endpoints.MapControllerRoute(
+            //        name: "default",
+            //        pattern: "{controller=Home}/{action=Index}/{id?}");
+            //    endpoints.MapRazorPages();
+            //});
+
+            app.UseMvc(routes =>
             {
-                endpoints.MapControllerRoute(
-                    name: "default",
-                    pattern: "{controller=Home}/{action=Index}/{id?}");
-                endpoints.MapRazorPages();
+            routes.MapRoute(
+                name: "default",
+                template: "{controller=Home}/{action=Index}/{id?}");
+            routes.MapAreaRoute("Principal", "Principal", "{controller=Principal}/{action=''}/{id?}");
+                routes.MapAreaRoute("Cliente", "Cliente", "{controller=Cliente}/{action='Cliente'}/{id?}");
+
+
+
+
             });
         }
     }

@@ -15,4 +15,17 @@
     <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="3.1.1" />
   </ItemGroup>
 
+
+  <ItemGroup>
+    <Folder Include="Areas\Cliente\Data\" />
+    <Folder Include="Areas\Cuenta\Controllers\" />
+    <Folder Include="Areas\Cuenta\Data\" />
+    <Folder Include="Areas\Cuenta\Views\" />
+    <Folder Include="Areas\Principal\Data\" />
+    <Folder Include="Areas\Principal\Models\" />
+    <Folder Include="Areas\Tarjeta\Controllers\" />
+    <Folder Include="Areas\Tarjeta\Data\" />
+    <Folder Include="Areas\Tarjeta\Views\" />
+  </ItemGroup>
+
 </Project>
