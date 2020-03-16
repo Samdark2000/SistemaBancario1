@@ -36,6 +36,8 @@ namespace TechOvni
             services.AddMvc().AddMvcOptions(options =>
             {
                 options.EnableEndpointRouting = false;
+                
+                
             });
 
             services.AddControllersWithViews();
