@@ -21,21 +21,51 @@ namespace TechOvni.Areas.Cliente.Controllers
         public LCliente _lCliente;
         private SignInManager<IdentityUser> _signInManager;
         private static DataPaginador<TCliente> models;
+        public static IdentityError identityError = null;
 
         public ClienteController(ApplicationDbContext context, SignInManager<IdentityUser> signInManager)
         {
             _signInManager = signInManager;
             _lCliente = new LCliente(context);
         }
-        public IActionResult Cliente()
+        public IActionResult Cliente(int id, String Search, int Registros)
         {
             if (_signInManager.IsSignedIn(User))
             {
+                Object[] objects = new Object[3];
+                var data = _lCliente.getTCliente(Search);
+
+                if (0 < data.Count)
+                {
+                    var url = Request.Scheme + "://" + Request.Host.Value;
+                    objects = new LPaginador<TCliente>().paginador(_lCliente.getTCliente(Search)
+                       , id, Registros, "Cliente", "Cliente", "Cliente", url);
+
+                }
+                else
+                {
+                    objects[0] = "No hay datos que mostrar";
+                    objects[1] = "No hay datos que mostrar";
+                    objects[2] = new List<TCliente>();
+                }
+
+
+
+
                 models = new DataPaginador<TCliente>
                 {
-                    Input = new TCliente()
+                    List = (List<TCliente>)objects[2],
+                    Pagi_info = (string)objects[0],
+                    Pagi_navegacion = (string)objects[1],
 
+                    Input = new TCliente()
                 };
+
+                if (identityError != null)
+                {
+                    models.Pagi_info = identityError.Description;
+                    identityError = null;
+                }
 
                 return View(models);
             }
@@ -44,7 +74,6 @@ namespace TechOvni.Areas.Cliente.Controllers
                 return RedirectToAction(nameof(HomeController.Index), "Home");
             }
 
-            
         }
         [HttpPost]
         public string GetCliente(DataPaginador<TCliente> model)
@@ -58,7 +87,7 @@ namespace TechOvni.Areas.Cliente.Controllers
             }
             else
             {
-                return "No sea Imbecil, Llene los campos";
+                return " Llene los campos";
             }
         }
 
