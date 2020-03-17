@@ -63,5 +63,58 @@ namespace TechOvni.Areas.Cliente.Models
             }
             return listCategoria;
         }
+
+        internal IdentityError UpdateEstado(int id)
+        {
+            IdentityError identityError;
+
+            try
+            {
+                var cliente = context._TCliente.Where(c => c.ClienteID.Equals(id)).ToList().ElementAt(0);
+                cliente.Estado = cliente.Estado ? false : true;
+                int data = Convert.ToInt16("a");
+                context.Update(cliente);
+                context.SaveChanges();
+                identityError = new IdentityError { Description = "Done" };
+            }
+            catch (Exception e)
+            {
+                identityError = new IdentityError
+                {
+                    Code = "Error",
+                    Description = e.Message
+                };
+            }
+            return identityError;
+        }
+
+           internal IdentityError DeleteCategoria(int clienteID)
+        {
+            IdentityError identityError;
+
+            try
+            {
+                var cliente = new TCliente
+                {
+                    ClienteID = clienteID
+                };
+
+                context.Remove(cliente);
+                context.SaveChanges();
+
+                identityError = new IdentityError { Description = "Done" };
+
+
+
+            } catch(Exception e)
+            {
+                identityError = new IdentityError
+                {
+                    Code = "Error",
+                    Description = e.Message
+                };
+            }
+            return identityError;
+        }
     }
 }

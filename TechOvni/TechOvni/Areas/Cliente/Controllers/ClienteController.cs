@@ -91,5 +91,19 @@ namespace TechOvni.Areas.Cliente.Controllers
             }
         }
 
+        [HttpPost]
+
+        public IActionResult UpdateEstado(int id)
+        {
+            identityError = _lCliente.UpdateEstado(id);
+            return Redirect("/Cliente/Cliente?area=Cliente");
+        }
+        [HttpPost]
+        public string EliminarCategoria(int clienteID)
+        {
+            identityError = _lCliente.DeleteCategoria(clienteID);
+            return JsonConvert.SerializeObject(identityError);
+        }
+
     }
 }
