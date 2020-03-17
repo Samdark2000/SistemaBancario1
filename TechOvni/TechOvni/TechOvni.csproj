@@ -24,7 +24,6 @@
     <Folder Include="Areas\Principal\Data\" />
     <Folder Include="Areas\Principal\Models\" />
     <Folder Include="Areas\Tarjeta\Data\" />
-    <Folder Include="Areas\Tarjeta\Views\" />
   </ItemGroup>
 
 </Project>
