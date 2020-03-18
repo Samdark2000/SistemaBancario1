@@ -83,6 +83,7 @@ namespace TechOvni
                 template: "{controller=Home}/{action=Index}/{id?}");
             routes.MapAreaRoute("Principal", "Principal", "{controller=Principal}/{action=''}/{id?}");
                 routes.MapAreaRoute("Cliente", "Cliente", "{controller=Cliente}/{action='Cliente'}/{id?}");
+                routes.MapAreaRoute("Tarjeta", "Tarjeta", "{controller=Tarjeta}/{action='Tarjeta'}/{id?}");
 
 
 

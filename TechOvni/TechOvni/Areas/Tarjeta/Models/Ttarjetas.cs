@@ -12,7 +12,7 @@ namespace TechOvni.Areas.Tarjeta.Models
         [Key]
         public int TarjetaID { get; set; }
 
-        public int Num_Tarjeta { get; set; }
+        public string Num_Tarjeta { get; set; }
 
         [DataType(DataType.Date)]
         [DisplayFormat(DataFormatString = "{0:dd-MM-yyyy}", ApplyFormatInEditMode = true)]

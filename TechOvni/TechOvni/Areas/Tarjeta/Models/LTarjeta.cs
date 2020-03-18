@@ -1,28 +1,32 @@
-﻿using Microsoft.AspNetCore.Identity;
+﻿using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Identity;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using TechOvni.Data;
+using TechOvni.Models;
 
-namespace TechOvni.Areas.Cliente.Models
+namespace TechOvni.Areas.Tarjeta.Models
 {
-    public class LCliente
+ 
+    public class LTarjeta
     {
         private ApplicationDbContext context;
+        private IWebHostEnvironment environment;
 
-        public LCliente(ApplicationDbContext context)
+        public LTarjeta(ApplicationDbContext context)
         {
             this.context = context;
         }
 
-        public IdentityError RegistrarCliente(TCliente cliente)
+        public IdentityError RegistrarCliente(Ttarjetas cliente)
         {
             IdentityError identityError;
 
             try
             {
-                if (cliente.ClienteID.Equals(0))
+                if (cliente.TarjetaID.Equals(0))
                 {
                     context.Add(cliente);
                 }
@@ -49,17 +53,17 @@ namespace TechOvni.Areas.Cliente.Models
 
             return identityError;
         }
-        public List<TCliente> getTCliente(string valor)
+        public List<Ttarjetas> getTCliente(string valor)
         {
-            List<TCliente> listCategoria;
+            List<Ttarjetas> listCategoria;
 
             if (valor == null)
             {
-                listCategoria = context._TCliente.ToList();
+                listCategoria = context._Ttarjeta.ToList();
             }
             else
             {
-                listCategoria = context._TCliente.Where(c => c.Nombre.StartsWith(valor)).ToList();
+                listCategoria = context._Ttarjeta.Where(c => c.Num_Tarjeta.StartsWith(valor)).ToList();
             }
             return listCategoria;
         }
@@ -70,8 +74,8 @@ namespace TechOvni.Areas.Cliente.Models
 
             try
             {
-                var cliente = context._TCliente.Where(c => c.ClienteID.Equals(id)).ToList().ElementAt(0);
-                cliente.Estado = cliente.Estado ? false : true;
+                var cliente = context._Ttarjeta.Where(c => c.TarjetaID.Equals(id)).ToList().ElementAt(0);
+                cliente.estado = cliente.estado? false : true;
                 int data = Convert.ToInt16("a");
                 context.Update(cliente);
                 context.SaveChanges();
@@ -88,25 +92,26 @@ namespace TechOvni.Areas.Cliente.Models
             return identityError;
         }
 
-           internal IdentityError DeleteCategoria(int clienteID)
+        internal IdentityError DeleteCategoria(int tarjetaID)
         {
             IdentityError identityError;
 
             try
             {
-                var cliente = new TCliente
+                var tarjeta = new Ttarjetas
                 {
-                    ClienteID = clienteID
+                    TarjetaID = tarjetaID
                 };
 
-                context.Remove(cliente);
+                context.Remove(tarjeta);
                 context.SaveChanges();
 
                 identityError = new IdentityError { Description = "Done" };
 
 
 
-            } catch(Exception e)
+            }
+            catch (Exception e)
             {
                 identityError = new IdentityError
                 {

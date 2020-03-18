@@ -1,0 +1,185 @@
+﻿@model DataPaginador<Ttarjetas>
+@{
+    ViewData["Title"] = "Tarjeta";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h1>Tarjeta</h1>
+
+<form asp-area="Tarjeta" asp-controller="Tarjeta" asp-action="Tarjeta" method="get">
+    <div class="row">
+        <div class="col-xs-8 col-md-3">
+            <input id="filtrar" name="Search" placeholder="Buscar Tarjeta" class="form-control" />
+
+        </div>
+        <div class="col-xs-6 col-md-3">
+            <div class="col-md-2">
+                <button type="submit" class="btn btn-info">Buscar</button>
+            </div>
+        </div>
+    </div>
+</form>
+<br />
+<br />
+<div class="form-group">
+    <div class="row">
+        <div class="col-md-3">
+            <a data-toggle="modal" data-target="#modal1" class="btn btn-info text-white">Crear Tarjeta</a>
+        </div>
+        <form asp-area="Tarjeta" asp-controller="Tarjeta" asp-action="Tarjeta" method="get">
+            <div class="row">
+                <div class="col-md-5">
+
+                    <input type="number" name="Registros" class="form-control" value="5" min="1" max="50" step="1" />
+
+                </div>
+
+                <div class="col-md-3">
+                    <input type="submit" class="btn btn-success" value="N Registros" />
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Input.Num_Tarjeta)
+            </th>
+
+            <th>
+                @Html.DisplayNameFor(model => model.Input.DateOuverture)
+            </th>
+
+            <th>
+                @Html.DisplayNameFor(model => model.Input.CVV)
+            </th>
+
+            <th>
+                @Html.DisplayNameFor(model => model.Input.estado)
+            </th>
+
+
+            <th>
+                Opciones
+
+            </th>
+
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model.List)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Num_Tarjeta)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.DateOuverture)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.CVV)
+                </td>
+              
+                <td>
+                    <form asp-area="Cliente" asp-controller="Cliente" asp-action="UpdateEstado" method="post">
+                        <input type="hidden" name="id" value="@item.TarjetaID" />
+                        @if (item.estado)
+                        {
+                            <input type="submit" class="btn btn-success text-light" value="Activo" />
+                        }
+                        else
+                        {
+                            <input type="submit" class="btn btn-danger text-light" value="Inactivo" />
+                        }
+                    </form>
+                </td>
+
+                <td>
+                    @{
+                        var data = JsonConvert.SerializeObject(item);
+                        <a data-toggle="modal" onclick="cliente.EditCliente(@data)" data-target="#modal1" class="btn btn-info text-white">Editar</a>
+                        <a data-toggle="modal" data-target="#ModalEliminar" onclick="cliente(@data) " class="btn btn-danger text-white">Eliminar</a>
+                    }
+
+                </td>
+
+            </tr>
+        }
+    </tbody>
+</table>
+
+<div>
+    Resultados @Html.Raw(Model.Pagi_info)
+    <br />
+    @Html.Raw(Model.Pagi_navegacion)
+</div>
+
+<div class="modal fade" data-backdrop="static" id="modal1" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" id="myModalLabel">Agregar Tarjeta</h4>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+
+            <form method="post" asp-area="Tarjeta" asp-controller="Tarjeta" asp-action="GetCliente" class="formCliente">
+                <div class="modal-body">
+                    <div class="form-horizontal">
+                        <div class="form-group">
+                            <label asp-for="Input.Num_Tarjeta" class="col-md-2 control-label"></label>
+                            <div class="col-md-10">
+                                <input asp-for="Input.Num_Tarjeta" id="Ccedula" placeholder="Cedula" class="form-control" />
+                                <span asp-validation-for="Input.Num_Tarjeta" class="text-danger"></span>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label asp-for="Input.DateOuverture" class="col-md-2 control-label"></label>
+                            <div class="col-md-10">
+                                <input asp-for="Input.DateOuverture" id="CNombre" class="form-control" />
+                                <span asp-validation-for="Input.DateOuverture" class="text-danger"></span>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label asp-for="Input.CVV" class="col-md-2 control-label"></label>
+                            <div class="col-md-10">
+                                <input asp-for="Input.CVV" id="CApellido" placeholder="Apellido" class="form-control" />
+                                <span asp-validation-for="Input.CVV" class="text-danger"></span>
+                            </div>
+                        </div>
+
+                       
+                        <div class="form-group">
+                            <label asp-for="Input.estado" class="col-md-2 control-label"></label>
+                            <div class="col-md-10">
+                                <input asp-for="Input.estado" id="CEstado" />
+                            </div>
+                        </div>
+                        <span id="mensaje" class="text-danger"></span>
+                        <input type="text" required class="hidden" />
+                        <input asp-for="Input.TarjetaID" id="CClienteID" class="hidenn" />
+
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
+                    <button type="submit" onclick="cliente.Registrar()" class="btn btn-primary">Guardar</button>
+                </div>
+            </form>
+
+        </div>
+
+
+    </div>
+
+
+</div>
+
+@section Scripts{
+    @await Html.PartialAsync("_ValidationScriptsPartial")
+}
