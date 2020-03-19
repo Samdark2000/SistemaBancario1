@@ -1,17 +1,11 @@
-﻿@using Microsoft.AspNetCore.Identity
-@inject SignInManager<IdentityUser> SignInManager
-
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>@ViewData["Title"] - TechOvni</title>
+    <title>@ViewData["Title"] - Tech_Ovni</title>
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
-    <link rel="stylesheet" href="~/css/sheetslider.min.css" />
     <link rel="stylesheet" href="~/css/site.css" />
-    
-
 </head>
 <body>
     <header>
@@ -19,8 +13,7 @@
             <div class="container">
                 <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">
                     <img src="~/Images/LogoSample_ByTailorBrands (2).jpg" style="width: 175px; height: 100px;" />
-                </a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; &nbsp; &nbsp;
-
+                </a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".navbar-collapse" aria-controls="navbarSupportedContent"
                         aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
@@ -29,28 +22,11 @@
                     <partial name="_LoginPartial" />
                     <ul class="navbar-nav flex-grow-1">
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">  Home  </a>
+                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
                         </li>
-                        @if (SignInManager.IsSignedIn(User))
-                        {
-                            <li class="nav-item">
-                                <a class="nav-link text-dark" asp-area="Cliente" asp-controller="Cliente" asp-action="Cliente">Clientes</a>
-                            </li>
-
-                            <li class="nav-item">
-                                <a class="nav-link text-dark" asp-area="Cuentas" asp-controller="Cuentas" asp-action="Cuentas">Cuentas</a>
-                            </li>
-
-                            <li class="nav-item">
-                                <a class="nav-link text-dark" asp-area="Tarjeta" asp-controller="Tarjeta" asp-action="Tarjeta">Tarjeta</a>
-                            </li>
-                        }
-                        else
-                        {
-                            <li class="nav-item">
-                                <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">About</a>
-                            </li>
-                        }
+                        <li class="nav-item">
+                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">About</a>
+                        </li>
                     </ul>
                 </div>
             </div>
@@ -64,16 +40,14 @@
 
     <footer class="border-top footer text-muted">
         <div class="container">
-            &copy; 2020 - TechOvni - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
-            <img src="~/Images/LogoSample_ByTailorBrands (2).jpg" style="width: 175px; height: 100px;" />
+            &copy; 2020 - Tech_Ovni - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
            
+            
         </div>
     </footer>
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
-    <script src="~/js/Cliente.js" asp-append-version="true"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>
-
     @RenderSection("Scripts", required: false)
 </body>
 </html>
