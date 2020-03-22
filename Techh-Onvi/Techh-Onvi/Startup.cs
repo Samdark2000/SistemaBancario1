@@ -32,6 +32,14 @@ namespace Techh_Onvi
                     Configuration.GetConnectionString("DefaultConnection")));
             services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true)
                 .AddEntityFrameworkStores<ApplicationDbContext>();
+
+            services.AddMvc().AddMvcOptions(options =>
+            {
+                options.EnableEndpointRouting = false;
+
+
+            });
+
             services.AddControllersWithViews();
             services.AddRazorPages();
         }
@@ -58,12 +66,28 @@ namespace Techh_Onvi
             app.UseAuthentication();
             app.UseAuthorization();
 
-            app.UseEndpoints(endpoints =>
+            //app.UseEndpoints(endpoints =>
+            //{
+            //    endpoints.MapControllerRoute(
+            //        name: "default",
+            //        pattern: "{controller=Home}/{action=Index}/{id?}");
+            //    endpoints.MapRazorPages();
+            //});
+
+
+            app.UseMvc(routes =>
             {
-                endpoints.MapControllerRoute(
+                routes.MapRoute(
                     name: "default",
-                    pattern: "{controller=Home}/{action=Index}/{id?}");
-                endpoints.MapRazorPages();
+                    template: "{controller=Home}/{action=Index}/{id?}");
+               
+                routes.MapAreaRoute("Clientes", "Clientes", "{controller=Clientes}/{action='Clientes'}/{id?}");
+                routes.MapAreaRoute("Cuentas", "Cuentas", "{controller=Cuentas}/{action='Cuentas'}/{id?}");
+
+
+
+
+
             });
         }
     }

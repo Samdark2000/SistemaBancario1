@@ -1,0 +1,230 @@
+﻿@model DataPaginador<TClientes>
+@{
+    ViewData["Title"] = "Cliente";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h1>Clientes</h1>
+
+
+<form asp-area="Clientes" asp-controller="Clientes" asp-action="Clientes" method="get">
+    <div class="row">
+        <div class="col-xs-8 col-md-3">
+            <input id="filtrar" name="Search" placeholder="Buscar Cliente" class="form-control" />
+
+        </div>
+        <div class="col-xs-6 col-md-3">
+            <div class="col-md-2">
+                <button type="submit" class="btn btn-info">Buscar</button>
+            </div>
+        </div>
+    </div>
+</form>
+<br />
+<br />
+<div class="form-group">
+    <div class="row">
+        <div class="col-md-3">
+            <a data-toggle="modal" data-target="#modal1" class="btn btn-info text-white">Crear Clientes</a>
+        </div>
+        <form asp-area="Clientes" asp-controller="Clientes" asp-action="Clientes" method="get">
+            <div class="row">
+                <div class="col-md-5">
+
+                    <input type="number" name="Registros" class="form-control" value="5" min="1" max="50" step="1" />
+
+                </div>
+
+                <div class="col-md-3">
+                    <input type="submit" class="btn btn-success" value="N Registros" />
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Input.Cedula)
+            </th>
+
+            <th>
+                @Html.DisplayNameFor(model => model.Input.Nombre)
+            </th>
+
+            <th>
+                @Html.DisplayNameFor(model => model.Input.Apellido)
+            </th>
+
+            <th>
+                @Html.DisplayNameFor(model => model.Input.Telefono)
+            </th>
+
+            <th>
+                @Html.DisplayNameFor(model => model.Input.Direccion)
+            </th>
+
+
+
+
+
+            <th>
+                @Html.DisplayNameFor(model => model.Input.Estado)
+            </th>
+
+            <th>
+                Opciones
+
+            </th>
+
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model.List)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Cedula)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Nombre)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Apellido)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Telefono)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Direccion)
+                </td>
+
+                <td>
+                    <form asp-area="Clientes" asp-controller="Clientes" asp-action="UpdateEstado" method="post">
+                        <input type="hidden" name="id" value="@item.ClienteID" />
+                        @if (item.Estado)
+                        {
+                            <input type="submit" class="btn btn-success text-light" value="Activo" />
+                        }
+                        else
+                        {
+                            <input type="submit" class="btn btn-danger text-light" value="Inactivo" />
+                        }
+                    </form>
+                </td>
+
+                <td>
+                    @{
+                        var data = JsonConvert.SerializeObject(item);
+                        <a data-toggle="modal" onclick="clientes.EditCliente(@data)" data-target="#modal1" class="btn btn-info text-white">Editar</a>
+                        <a data-toggle="modal" data-target="#ModalEliminar" onclick="clientes.GetCliente(@data) " class="btn btn-danger text-white">Eliminar</a>
+                    }
+
+                </td>
+
+            </tr>
+        }
+    </tbody>
+</table>
+
+<div>
+    Resultados @Html.Raw(Model.Pagi_info)
+    <br />
+    @Html.Raw(Model.Pagi_navegacion)
+</div>
+
+<partial name="_ModalEliminar" />
+
+<div class="modal fade" data-backdrop="static" id="modal1" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" id="myModalLabel">Agregar Cliente</h4>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+
+            <form method="post" asp-area="Clientes" asp-controller="Clientes" asp-action="GetCliente" class="formCliente">
+                <div class="modal-body">
+                    <div class="form-horizontal">
+                        <div class="form-group">
+                            <label asp-for="Input.Cedula" class="col-md-2 control-label"></label>
+                            <div class="col-md-10">
+                                <input asp-for="Input.Cedula" id="Ccedula" placeholder="Cedula" class="form-control" />
+                                <span asp-validation-for="Input.Cedula" class="text-danger"></span>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label asp-for="Input.Nombre" class="col-md-2 control-label"></label>
+                            <div class="col-md-10">
+                                <input asp-for="Input.Nombre" id="CNombre" class="form-control" />
+                                <span asp-validation-for="Input.Nombre" class="text-danger"></span>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label asp-for="Input.Apellido" class="col-md-2 control-label"></label>
+                            <div class="col-md-10">
+                                <input asp-for="Input.Apellido" id="CApellido" placeholder="Apellido" class="form-control" />
+                                <span asp-validation-for="Input.Apellido" class="text-danger"></span>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label asp-for="Input.Telefono" class="col-md-2 control-label"></label>
+                            <div class="col-md-10">
+                                <input asp-for="Input.Telefono" id="CTelefono" class="form-control" />
+                                <span asp-validation-for="Input.Telefono" class="text-danger"></span>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label asp-for="Input.Direccion" class="col-md-2 control-label"></label>
+                            <div class="col-md-10">
+                                <input asp-for="Input.Direccion" id="CDireccion" class="form-control" />
+                                <span asp-validation-for="Input.Direccion" class="text-danger"></span>
+                            </div>
+                        </div>
+
+                        @*<div class="form-group">
+                                <label asp-for="Input.NumeroCuenta" class="col-md-2 control-label"></label>
+                                <div class="col-md-10">
+                                    <input asp-for="Input.NumeroCuenta" id="CNumero" class="form-control" />
+                                    <span asp-validation-for="Input.NumeroCuenta" class="text-danger"></span>
+                                </div>
+                            </div>*@
+                        <div class="form-group">
+                            <label asp-for="Input.Estado" class="col-md-2 control-label"></label>
+                            <div class="col-md-10">
+                                <input asp-for="Input.Estado" id="CEstado" />
+                            </div>
+                        </div>
+                        <span id="mensaje" class="text-danger"></span>
+                        <input type="text" required class="hidden" />
+                        <input asp-for="Input.ClienteID" id="CClienteID" class="hidenn" />
+
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
+                    <button type="submit" onclick="clientes.Registrar()" class="btn btn-primary">Guardar</button>
+                </div>
+            </form>
+
+        </div>
+
+
+    </div>
+
+
+</div>
+
+@section Scripts{
+    @await Html.PartialAsync("_ValidationScriptsPartial")
+}
+
+
+
