@@ -107,8 +107,9 @@ namespace Techh_Onvi.Areas.Cuentas.Controllers
             identityError = _cuenta.UpdateEstado(id);
             return Redirect("/Cuentas/Cuentas?area=Cuentas");
         }
+        [HttpPost]
 
-        public string EliminarCuenta(int CuentaID)
+        public String EliminarCuenta(int CuentaID)
         {
             identityError = _cuenta.DeleteCuenta(CuentaID);
             return JsonConvert.SerializeObject(identityError);
