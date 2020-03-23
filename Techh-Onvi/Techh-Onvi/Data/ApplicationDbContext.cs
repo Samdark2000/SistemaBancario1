@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Text;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
+using Techh_Onvi.Areas.Clientes.Models;
+using Techh_Onvi.Areas.Cuentas.Models;
 
 namespace Techh_Onvi.Data
 {
@@ -12,5 +14,8 @@ namespace Techh_Onvi.Data
             : base(options)
         {
         }
+
+         public DbSet<TClientes> _TCliente { get; set; }
+        public DbSet<TCuentas> _TCuenta { get; set; }
     }
 }

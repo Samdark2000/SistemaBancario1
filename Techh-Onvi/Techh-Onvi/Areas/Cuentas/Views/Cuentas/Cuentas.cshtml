@@ -1,0 +1,188 @@
+﻿@model DataPaginador<TCuentas>
+@{
+    ViewData["Title"] = "Cliente";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h1>Cuentas</h1>
+
+
+<form asp-area="Cuentas" asp-controller="Cuentas" asp-action="Cuentas" method="get">
+    <div class="row">
+        <div class="col-xs-8 col-md-3">
+            <input id="filtrar" name="Search" placeholder="Buscar Cuentas" class="form-control" />
+
+        </div>
+        <div class="col-xs-6 col-md-3">
+            <div class="col-md-2">
+                <button type="submit" class="btn btn-info">Buscar</button>
+            </div>
+        </div>
+    </div>
+</form>
+<br />
+<br />
+<div class="form-group">
+    <div class="row">
+        <div class="col-md-3">
+            <a data-toggle="modal" data-target="#modal1" class="btn btn-info text-white">Crear Cuentas</a>
+        </div>
+        <form asp-area="Cuentas" asp-controller="Cuentas" asp-action="Cuentas" method="get">
+            <div class="row">
+                <div class="col-md-5">
+
+                    <input type="number" name="Registros" class="form-control" value="5" min="1" max="50" step="1" />
+
+                </div>
+
+                <div class="col-md-3">
+                    <input type="submit" class="btn btn-success" value="N Registros" />
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Input.Numero_Cuenta)
+            </th>
+
+        
+
+            <th>
+                @Html.DisplayNameFor(model => model.Input.Estado)
+            </th>
+
+
+
+
+
+
+
+
+
+            <th>
+                Opciones
+
+            </th>
+
+        </tr>
+    </thead>
+    <tbody>
+
+       @{ 
+           var cli = JsonConvert.SerializeObject(Model.Clientes);
+       }
+
+        @foreach (var item in Model.List)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Numero_Cuenta)
+                </td>
+
+
+                <td>
+                    <form asp-area="Cuentas" asp-controller="Cuentas" asp-action="UpdateEstado" method="post">
+                        <input type="hidden" name="id" value="@item.CuentaID" />
+                        @if (item.Estado)
+                        {
+                            <input type="submit" class="btn btn-success text-light" value="Activo" />
+                        }
+                        else
+                        {
+                            <input type="submit" class="btn btn-danger text-light" value="Inactivo" />
+                        }
+                    </form>
+                </td>
+
+                <td>
+                    @{
+                        var data = JsonConvert.SerializeObject(item);
+                        <a data-toggle="modal" onclick="cuentas.EditCuentas(@data,@cli)" data-target="#modal1" class="btn btn-info text-white">Editar</a>
+                        <a data-toggle="modal" data-target="#ModalEliminar" onclick="cuentas.GetCuentas(@data) " class="btn btn-danger text-white">Eliminar</a>
+                    }
+
+                </td>
+
+            </tr>
+        }
+    </tbody>
+</table>
+
+<div>
+    Resultados @Html.Raw(Model.Pagi_info)
+    <br />
+    @Html.Raw(Model.Pagi_navegacion)
+</div>
+
+<partial name="_ModalEliminar" />
+
+<div class="modal fade" data-backdrop="static" id="modal1" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" id="myModalLabel">Agregar Cuenta</h4>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+
+            <form method="post" asp-area="Cuentas" asp-controller="Cuentas" asp-action="Cuentas">
+                <div class="modal-body">
+                    <div class="form-horizontal">
+                        <div class="form-group">
+                            <label asp-for="Input.Numero_Cuenta" class="col-md-2 control-label"></label>
+                            <div class="col-md-10">
+                                <input asp-for="Input.Numero_Cuenta" id="CNumero" class="form-control" />
+                                <span asp-validation-for="Input.Numero_Cuenta" class="text-danger"></span>
+                            </div>
+                        </div>
+
+
+
+                        <div class="form-group">
+                            <label asp-for="Input.Estado" class="col-md-2 control-label"></label>
+                            <div class="col-md-10">
+                                <input asp-for="Input.Estado" id="CEstado" />
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="row">
+                                <label asp-for="Input.cliente" class="col-md-2 control-label"></label>
+                                <div class="col-md-10">
+                                    @Html.DropDownListFor(x => Model.Input.ClienteID, new SelectList
+                                   (Model.Clientes, "Value", "Text"),
+                                   "Seleccione un cliente", htmlAttributes: new { @class = "form-control", id = "curClientes" })
+                                    <span asp-validation-for="Input.ClienteID" class="text-danger"></span>
+
+
+                                </div>
+                            </div>
+                        </div>
+                        <span id="mensaje" class="text-danger"></span>
+                        <input type="text" required class="hidden" />
+                        <input asp-for="Input.CuentaID" id="CCuentaID" class="hidden" />
+
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
+                    <button type="submit" onclick="cuentas.RegistrarCuentas()" class="btn btn-primary">Guardar</button>
+                </div>
+            </form>
+
+        </div>
+
+
+    </div>
+
+
+</div>
+
+@section Scripts{
+    @await Html.PartialAsync("_ValidationScriptsPartial")
+}
