@@ -14,7 +14,7 @@ using Techh_Onvi.Models;
 namespace Techh_Onvi.Areas.Clientes.Controllers
 {
     [Area("Clientes")]
-    [Authorize]
+    [Authorize(Roles ="Admin")]
     public class ClientesController : Controller
     {
         private TClientes _Cliente;
