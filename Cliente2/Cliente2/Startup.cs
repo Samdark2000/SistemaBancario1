@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -9,9 +9,9 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.EntityFrameworkCore;
-using TechOnvi_Cliente.Models; 
+using Cliente2.Data;
 
-namespace TechOnvi_Cliente
+namespace Cliente2
 {
     public class Startup
     {
@@ -26,12 +26,13 @@ namespace TechOnvi_Cliente
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllersWithViews();
-            services.AddDbContext<EmployeeContext>(options =>
-            options.UseSqlServer(Configuration.GetConnectionString("DevConnection")));
+
+            services.AddDbContext<Cliente2Context>(options =>
+                    options.UseSqlServer(Configuration.GetConnectionString("Cliente2Context")));
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
+        public void Configure(IApplicationBuilder app, IWebHostEnvironment env, Cliente2Context context)
         {
             if (env.IsDevelopment())
             {
@@ -56,6 +57,8 @@ namespace TechOnvi_Cliente
                     name: "default",
                     pattern: "{controller=Home}/{action=Index}/{id?}");
             });
+
+            DbInitializer.Initialize(context);
         }
     }
 }

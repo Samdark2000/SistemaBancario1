@@ -9,9 +9,8 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.EntityFrameworkCore;
-using TechOnvi_Cliente.Models; 
-
-namespace TechOnvi_Cliente
+using Cliente_5.Models;
+namespace Cliente_5
 {
     public class Startup
     {
@@ -26,8 +25,7 @@ namespace TechOnvi_Cliente
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllersWithViews();
-            services.AddDbContext<EmployeeContext>(options =>
-            options.UseSqlServer(Configuration.GetConnectionString("DevConnection")));
+            services.AddDbContext<ApplicationDbContext>(options => options.UseSqlServer(Configuration.GetConnectionString("Myconnection")));
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -54,7 +52,7 @@ namespace TechOnvi_Cliente
             {
                 endpoints.MapControllerRoute(
                     name: "default",
-                    pattern: "{controller=Home}/{action=Index}/{id?}");
+                    pattern: "{controller=FileUploadCrud}/{action=Solicitud}/{id?}");
             });
         }
     }

@@ -1,11 +1,12 @@
-﻿@model TechOnvi_Cliente.Models.Employee
+﻿@model Cliente2.Models.Cliente
 
 @{
     ViewData["Title"] = "Create";
 }
 
-<h1>Agregar tu solicitud</h1>
+<h1>Create</h1>
 
+<h4>Cliente</h4>
 <hr />
 <div class="row">
     <div class="col-md-4">
@@ -21,29 +22,24 @@
                 <input asp-for="Apellido" class="form-control" />
                 <span asp-validation-for="Apellido" class="text-danger"></span>
             </div>
-            <div class="input-group mb-3">
-                <div class="input-group-prepend">
-                    <span class="input-group-text" id="inputGroupFileAddon01">Upload</span>
-                </div>
-                <div class="custom-file">
-                    <input asp-for="Solicitud" type="file" class="custom-file-input" id="inputGroupFile01" aria-describedby="inputGroupFileAddon01">
-                    <label asp-for="Solicitud" class="custom-file-label" for="inputGroupFile01">
-                        Elija el archivo
-                    </label>
-                    <span asp-validation-for="Solicitud" class="text-danger"></span>
-                </div>
-            </div>
             <div class="form-group">
-                <input type="submit" value="Agregar" class="btn btn-outline-dark" />
+                <label asp-for="Solicitud" class="control-label"></label>
+                <input asp-for="Solicitud" class="form-control" />
+                <span asp-validation-for="Solicitud" class="text-danger"></span>
             </div>
-        </form>
+    
+
+    <div class="form-group">
+        <input type="submit" value="Create" class="btn btn-outline-dark" />
     </div>
+    </form>
 </div>
+</div>
+
 <div>
-    ==
+    <a asp-action="Index">Back to List</a>
 </div>
 
 @section Scripts {
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
-
 }

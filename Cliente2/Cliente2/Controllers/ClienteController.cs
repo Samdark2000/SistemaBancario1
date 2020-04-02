@@ -5,26 +5,27 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
-using TechOnvi_Cliente.Models;
+using Cliente2.Data;
+using Cliente2.Models;
 
-namespace TechOnvi_Cliente.Controllers
+namespace Cliente2.Controllers
 {
-    public class EmployeeController : Controller
+    public class ClienteController : Controller
     {
-        private readonly EmployeeContext _context;
+        private readonly Cliente2Context _context;
 
-        public EmployeeController(EmployeeContext context)
+        public ClienteController(Cliente2Context context)
         {
             _context = context;
         }
 
-        // GET: Employee
+        // GET: Cliente
         public async Task<IActionResult> Index()
         {
-            return View(await _context.Employees.ToListAsync());
+            return View(await _context.Cliente.ToListAsync());
         }
 
-        // GET: Employee/Details/5
+        // GET: Cliente/Details/5
         public async Task<IActionResult> Details(int? id)
         {
             if (id == null)
@@ -32,44 +33,39 @@ namespace TechOnvi_Cliente.Controllers
                 return NotFound();
             }
 
-            var employee = await _context.Employees
+            var cliente = await _context.Cliente
                 .FirstOrDefaultAsync(m => m.Id == id);
-            if (employee == null)
+            if (cliente == null)
             {
                 return NotFound();
             }
 
-            return View(employee);
+            return View(cliente);
         }
 
-        // GET: Employee/Create
+        // GET: Cliente/Create
         public IActionResult Create()
         {
             return View();
         }
 
-        // POST: Employee/Create
+        // POST: Cliente/Create
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,Nombre,Apellido,Solicitud")] Employee employee)
+        public async Task<IActionResult> Create([Bind("Id,Nombre,Apellido,Solicitud")] Cliente cliente)
         {
             if (ModelState.IsValid)
             {
-                _context.Add(employee);
-                await NewMethod();
+                _context.Add(cliente);
+                await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            return View(employee);
+            return View(cliente);
         }
 
-        private async Task NewMethod()
-        {
-            await _context.SaveChangesAsync();
-        }
-
-        // GET: Employee/Edit/5
+        // GET: Cliente/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null)
@@ -77,22 +73,22 @@ namespace TechOnvi_Cliente.Controllers
                 return NotFound();
             }
 
-            var employee = await _context.Employees.FindAsync(id);
-            if (employee == null)
+            var cliente = await _context.Cliente.FindAsync(id);
+            if (cliente == null)
             {
                 return NotFound();
             }
-            return View(employee);
+            return View(cliente);
         }
 
-        // POST: Employee/Edit/5
+        // POST: Cliente/Edit/5
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,Nombre,Apellido,Solicitud")] Employee employee)
+        public async Task<IActionResult> Edit(int id, [Bind("Id,Nombre,Apellido,Solicitud,")] Cliente cliente)
         {
-            if (id != employee.Id)
+            if (id != cliente.Id)
             {
                 return NotFound();
             }
@@ -101,12 +97,12 @@ namespace TechOnvi_Cliente.Controllers
             {
                 try
                 {
-                    _context.Update(employee);
+                    _context.Update(cliente);
                     await _context.SaveChangesAsync();
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!EmployeeExists(employee.Id))
+                    if (!ClienteExists(cliente.Id))
                     {
                         return NotFound();
                     }
@@ -117,10 +113,10 @@ namespace TechOnvi_Cliente.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            return View(employee);
+            return View(cliente);
         }
 
-        // GET: Employee/Delete/5
+        // GET: Cliente/Delete/5
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)
@@ -128,30 +124,35 @@ namespace TechOnvi_Cliente.Controllers
                 return NotFound();
             }
 
-            var employee = await _context.Employees
+            var cliente = await _context.Cliente
                 .FirstOrDefaultAsync(m => m.Id == id);
-            if (employee == null)
+            if (cliente == null)
             {
                 return NotFound();
             }
 
-            return View(employee);
+            return View(cliente);
         }
 
-        // POST: Employee/Delete/5
+        // POST: Cliente/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            var employee = await _context.Employees.FindAsync(id);
-            _context.Employees.Remove(employee);
+            var cliente = await _context.Cliente.FindAsync(id);
+            _context.Cliente.Remove(cliente);
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
 
-        private bool EmployeeExists(int id)
+        private bool ClienteExists(int id)
         {
-            return _context.Employees.Any(e => e.Id == id);
+            return _context.Cliente.Any(e => e.Id == id);
+        }
+
+        public IActionResult Vista()
+        {
+            return View();
         }
     }
 }
