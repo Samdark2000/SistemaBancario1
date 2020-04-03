@@ -33,7 +33,7 @@ namespace Cliente_5.Controllers
         public async Task<ActionResult> Index(IFormFile fileobj, ImageCrudClass icc)
         {
             var imgext = Path.GetExtension(fileobj.FileName);
-            if (imgext == ".jpg" || imgext == ".gif" || imgext == ".png")
+            if (imgext == ".jpg" || imgext == ".gif" || imgext == ".png" || imgext == ".pdf" || imgext == ".docx")
             {
                 var uploadimg = Path.Combine(_iweb.WebRootPath, "Imagen", fileobj.FileName);
                 var stream = new FileStream(uploadimg, FileMode.Create);
@@ -83,7 +83,7 @@ namespace Cliente_5.Controllers
 
 
             var imgext = Path.GetExtension(fileobj.FileName);
-            if (imgext == ".jpg" || imgext == ".gif" || imgext == ".png")
+            if (imgext == ".jpg" || imgext == ".gif" || imgext == ".png" || imgext == ".pdf" || imgext == ".docx")
             {
                 var uploadimg = Path.Combine(_iweb.WebRootPath, "Imagen", fileobj.FileName);
                 var stream = new FileStream(uploadimg, FileMode.Create);
