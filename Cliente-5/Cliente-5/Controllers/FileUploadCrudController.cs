@@ -147,6 +147,13 @@ namespace Cliente_5.Controllers
 
         public IActionResult Calculadora()
         {
+
+            return View();
+        }
+
+
+        public IActionResult Informacion()
+        {
             return View();
         }
     }
