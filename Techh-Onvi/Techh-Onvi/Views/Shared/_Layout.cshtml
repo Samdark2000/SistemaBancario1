@@ -1,5 +1,6 @@
 ﻿@using Microsoft.AspNetCore.Identity
 @inject SignInManager<IdentityUser> SignInManager
+@inject UserManager<IdentityUser> UserManager
 
 <!DOCTYPE html>
 <html lang="en">
@@ -9,6 +10,9 @@
     <title>@ViewData["Title"] - Techh_Onvi</title>
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/css/site.css" />
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@1,100&display=swap" rel="stylesheet"/>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/js/all.min.js" />
+    <link rel="stylesheet" href=https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/js/brands.min.js />
 </head>
 <body>
     <header>
@@ -27,21 +31,51 @@
 
                         @if (SignInManager.IsSignedIn(User))
                         {
+                            var user = await UserManager.GetUserAsync(User);
+                            var valor = await UserManager.IsInRoleAsync(user, "Admin");
+
+                            if (valor)
+                            {
+                                <li class="nav-item">
+                                    <a class="nav-link text-dark" asp-area="Clientes" asp-controller="Clientes" asp-action="Clientes">Clientes</a>
+                                </li>
+
+                                <li class="nav-item">
+                                    <a class="nav-link text-dark" asp-area="Cuentas" asp-controller="Cuentas" asp-action="Cuentas">Cuentas</a>
+                                </li>
+
+                                <li class="nav-item">
+                                    <a class="nav-link text-dark" asp-area="" asp-controller="Trasanctions" asp-action="Index">Transancciones</a>
+                                </li>
+                            }
+
+
                             <li class="nav-item">
-                                <a class="nav-link text-dark" asp-area="Clientes" asp-controller="Clientes" asp-action="Clientes">Clientes</a>
+                                <a class="nav-link text-dark" asp-area="" asp-controller="FileUploadCrud" asp-action="Solicitud">Solicitud</a>
                             </li>
 
                             <li class="nav-item">
-                                <a class="nav-link text-dark" asp-area="Cuentas" asp-controller="Cuentas" asp-action="Cuentas">Cuentas</a>
+                                <a class="nav-link text-dark" asp-area="" asp-controller="FileUploadCrud" asp-action="Calculadora">Calculadora</a>
                             </li>
+
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" asp-area="" asp-controller="FileUploadCrud" asp-action="AboutUs">Nosotros</a>
+                            </li>
+
+
+
+
                         }
                         else
                         {
+
+
                             <li class="nav-item">
-                                <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
+                                <a class="nav-link text-dark" asp-area="" asp-controller="FileUploadCrud" asp-action="Solicitud">Home</a>
                             </li>
+
                             <li class="nav-item">
-                                <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+                                <a class="nav-link text-dark" asp-area="" asp-controller="FileUploadCrud" asp-action="AboutUs">Nosotros</a>
                             </li>
                         }
 
@@ -56,6 +90,27 @@
         </main>
     </div>
 
+    <div class="modal" tabindex="-1" role="dialog" id="form-modal">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title"></h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                   
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+    @*<div class="loaderbody" id="loaderbody">
+        <div class="loader"></div>
+    </div>*@
+
     <footer class="border-top footer text-muted">
         <div class="container">
             &copy; 2020 - Techh_Onvi - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
@@ -66,6 +121,7 @@
     <script src="~/js/Clientes.js" asp-append-version="true"></script>
     <script src="~/js/Cuentas.js" asp-append-version="true"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>
+    <script src="~/js/notify.min.js" asp-append-version="true"></script>
 
     @RenderSection("Scripts", required: false)
 </body>

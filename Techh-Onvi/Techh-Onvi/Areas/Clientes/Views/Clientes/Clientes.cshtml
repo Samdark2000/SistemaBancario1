@@ -16,9 +16,17 @@
         <div class="col-xs-6 col-md-3">
             <div class="col-md-2">
                 <button type="submit" class="btn btn-info">Buscar</button>
+               
+            </div>
+        </div>
+        <div class="col-xs-6 col-md-3">
+            <div class="col-md-2">
+                @*<button type="submit" class="btn btn-info">Buscar</button>*@
+                <a asp-area="Clientes" asp-controller="Clientes" asp-action="Export" class="btn btn-info">Exportar</a>
             </div>
         </div>
     </div>
+
 </form>
 <br />
 <br />
@@ -37,7 +45,9 @@
 
                 <div class="col-md-3">
                     <input type="submit" class="btn btn-success" value="N Registros" />
+                   
                 </div>
+               
             </div>
         </form>
     </div>
@@ -120,6 +130,9 @@
                         var data = JsonConvert.SerializeObject(item);
                         <a data-toggle="modal" onclick="clientes.EditCliente(@data)" data-target="#modal1" class="btn btn-info text-white">Editar</a>
                         <a data-toggle="modal" data-target="#ModalEliminar" onclick="clientes.GetCliente(@data) " class="btn btn-danger text-white">Eliminar</a>
+                        
+                           
+                        
                     }
 
                 </td>
@@ -141,7 +154,7 @@
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h4 class="modal-title" id="myModalLabel">Agregar Cliente</h4>
+                <h4 class="modal-title" id="myModalLabel">Actualizar Cliente</h4>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
@@ -160,7 +173,7 @@
                         <div class="form-group">
                             <label asp-for="Input.Nombre" class="col-md-2 control-label"></label>
                             <div class="col-md-10">
-                                <input asp-for="Input.Nombre" id="CNombre" class="form-control" />
+                                <input asp-for="Input.Nombre" id="CNombre" placeholder="Nombre" class="form-control" />
                                 <span asp-validation-for="Input.Nombre" class="text-danger"></span>
                             </div>
                         </div>
@@ -176,7 +189,7 @@
                         <div class="form-group">
                             <label asp-for="Input.Telefono" class="col-md-2 control-label"></label>
                             <div class="col-md-10">
-                                <input asp-for="Input.Telefono" id="CTelefono" class="form-control" />
+                                <input asp-for="Input.Telefono" id="CTelefono" placeholder="Telefono" class="form-control" />
                                 <span asp-validation-for="Input.Telefono" class="text-danger"></span>
                             </div>
                         </div>
@@ -184,7 +197,7 @@
                         <div class="form-group">
                             <label asp-for="Input.Direccion" class="col-md-2 control-label"></label>
                             <div class="col-md-10">
-                                <input asp-for="Input.Direccion" id="CDireccion" class="form-control" />
+                                <input asp-for="Input.Direccion" id="CDireccion" placeholder="Direccion" class="form-control" />
                                 <span asp-validation-for="Input.Direccion" class="text-danger"></span>
                             </div>
                         </div>
@@ -204,7 +217,7 @@
                         </div>
                         <span id="mensaje" class="text-danger"></span>
                         <input type="text" required class="hidden" />
-                        <input asp-for="Input.ClienteID" id="CClienteID" class="hidenn" />
+                        <input asp-for="Input.ClienteID" id="CClienteID" class="hidden" />
 
                     </div>
                 </div>

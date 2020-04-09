@@ -1,0 +1,13 @@
+﻿@model IEnumerable<Techh_Onvi.Models.Trasanction>
+
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h1 class="text-center"><i class="fas fa-comment-dollar text-success"></i>Historial de Transacciones</h1>
+
+
+<div id="view-all">
+    @await Html.PartialAsync("_ViewAll", Model);
+</div>

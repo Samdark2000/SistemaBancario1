@@ -31,14 +31,15 @@ namespace Techh_Onvi.Areas.Cuentas.Models
 
                 if (model.Input.CuentaID.Equals(0))
                 {
-                    var cuentas = new TCuentas
+                    var cuenta = new TCuentas
                     {
+
                         Numero_Cuenta = model.Input.Numero_Cuenta,
                         Estado = model.Input.Estado,
                         ClienteID = model.Input.ClienteID
                     };
-                    context.Add(cuentas);
-                    context.SaveChanges();
+                    context.Add(cuenta);
+                              
 
                 }
                 else
@@ -51,12 +52,15 @@ namespace Techh_Onvi.Areas.Cuentas.Models
                         ClienteID = model.Input.ClienteID
                     };
                     context.Update(cuenta);
-                    context.SaveChanges();
+
+                    
                 }
+                context.SaveChanges();
 
 
-                
-                
+
+
+
                 identityError = new IdentityError { Code = "Done" };
 
             }

@@ -1,0 +1,97 @@
+﻿@model Techh_Onvi.Models.Trasanction
+
+@{
+    ViewData["Title"] = "Edit";
+    Layout = null;
+}
+
+
+
+<h4>Trasanction</h4>
+<hr />
+
+
+<div class="row">
+    <div class="col-md-12">
+        <form asp-action="AddOrEdit" asp-route-id="@Model.TransactionId" onsubmit=" return jQueryAjaxPost(this);" autocomplete="off">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input type="hidden" asp-for="TransactionId" />
+            <input type="hidden" asp-for="date" />
+            <div class="form-group">
+                <label asp-for="AccountNumber" class="control-label"></label>
+                <div class="input-group">
+                    <div class="input-group-prepend">
+                        <div class="input-group-text">#</div>
+                    </div>
+                    <input asp-for="AccountNumber" class="form-control" />
+                </div>
+               
+                <span asp-validation-for="AccountNumber" class="text-danger"></span>
+            </div>
+
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label asp-for="Beneficiario" class="control-label"></label>
+                        <input asp-for="Beneficiario" class="form-control" />
+                        <span asp-validation-for="Beneficiario" class="text-danger"></span>
+                    </div>
+                </div>
+
+              
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label asp-for="BankName" class="control-label"></label>
+                            <input asp-for="BankName" class="form-control" />
+                            <span asp-validation-for="BankName" class="text-danger"></span>
+                        </div>
+                    </div>
+                </div>
+
+           
+
+          
+               
+         
+
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label asp-for="Monto" class="control-label"></label>
+                        <div class="input-group">
+                            <div class="input-group-prepend">
+                                <div class="input-group-text">$</div>
+                            </div>
+                            <input asp-for="Monto" class="form-control" />
+                        </div>
+
+                        <span asp-validation-for="Monto" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label asp-for="SWIFTCode" class="control-label"></label>
+                        <input asp-for="SWIFTCode" class="form-control" />
+                        <span asp-validation-for="SWIFTCode" class="text-danger"></span>
+                    </div>
+                </div>
+            </div>
+
+
+
+
+            
+            
+            @*<div class="form-group">
+                <label asp-for="date" class="control-label"></label>
+                <input asp-for="date" class="form-control" />
+                <span asp-validation-for="date" class="text-danger"></span>
+            </div>*@
+            <div class="form-group">
+                <input type="submit" value="Enviar" class="btn btn-primary btn-block" />
+            </div>
+        </form>
+    </div>
+</div>
+
+

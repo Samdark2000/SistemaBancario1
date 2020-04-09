@@ -62,7 +62,7 @@ namespace Techh_Onvi
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
-            if (env.IsDevelopment())
+            if (env.IsProduction())
             {
                 app.UseDeveloperExceptionPage();
                 app.UseDatabaseErrorPage();
@@ -94,10 +94,11 @@ namespace Techh_Onvi
             {
                 routes.MapRoute(
                     name: "default",
-                    template: "{controller=Home}/{action=Index}/{id?}");
+                    template: "{controller=FileUploadCrud}/{action=Solicitud}/{id?}");
                
                 routes.MapAreaRoute("Clientes", "Clientes", "{controller=Clientes}/{action='Clientes'}/{id?}");
                 routes.MapAreaRoute("Cuentas", "Cuentas", "{controller=Cuentas}/{action='Cuentas'}/{id?}");
+                routes.MapAreaRoute("Clients", "Clients", "{controller=Clients}/{action='Index'}/{id?}");
 
 
 

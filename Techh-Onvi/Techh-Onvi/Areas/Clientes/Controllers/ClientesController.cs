@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
@@ -22,9 +23,11 @@ namespace Techh_Onvi.Areas.Clientes.Controllers
         private SignInManager<IdentityUser> _signInManager;
         private static DataPaginador<TClientes> models;
         public static IdentityError identityError = null;
+        private IWebHostEnvironment _hostingEnviroment;
 
-        public ClientesController(ApplicationDbContext context, SignInManager<IdentityUser> signInManager)
+        public ClientesController(ApplicationDbContext context, SignInManager<IdentityUser> signInManager, IWebHostEnvironment hostingEnvironment)
         {
+            _hostingEnviroment = hostingEnvironment;
             _signInManager = signInManager;
             _lCliente = new LClientes(context);
         }
@@ -104,6 +107,31 @@ namespace Techh_Onvi.Areas.Clientes.Controllers
         {
             identityError = _lCliente.DeleteCliente(clienteID);
             return JsonConvert.SerializeObject(identityError);
+        }
+
+       public async Task <IActionResult> Export()
+        {
+            var list = new List<String[]>();
+            if (!models.List.Equals(0))
+            {
+                foreach(var item in models.List)
+                {
+                    String[] listData =
+                    {
+                        item.ClienteID.ToString(),
+                        item.Cedula,
+                        item.Nombre,
+                        item.Telefono,
+                        item.Direccion,
+                        item.Estado.ToString(),
+                    };
+                    list.Add(listData);
+                }
+             
+            }
+            String[] title = { "ClienteID", "Cedula", "Nombre", "Telefono", "Direccion", "Estado" };
+            var export = new ExportData(_hostingEnviroment, list, title, "Clientes.xlsx", "Clientes");
+            return await export.ExportExcelAsync();
         }
 
     }

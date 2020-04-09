@@ -51,14 +51,14 @@ namespace Techh_Onvi.Areas.Identity.Pages.Account
             public string Email { get; set; }
 
             [Required]
-            [StringLength(100, ErrorMessage = "The {0} must be at least {2} and at max {1} characters long.", MinimumLength = 6)]
+            [StringLength(100, ErrorMessage = " Debe de tener al menos un caracter {2} y un maximo {1}.", MinimumLength = 6)]
             [DataType(DataType.Password)]
-            [Display(Name = "Password")]
+            [Display(Name = "Contraseña")]
             public string Password { get; set; }
 
             [DataType(DataType.Password)]
-            [Display(Name = "Confirm password")]
-            [Compare("Password", ErrorMessage = "The password and confirmation password do not match.")]
+            [Display(Name = "Confirmar Contraseña")]
+            [Compare("Password", ErrorMessage = "La contraseña no cioncide, Intentelo de nuevo")]
             public string ConfirmPassword { get; set; }
         }
 
@@ -70,7 +70,7 @@ namespace Techh_Onvi.Areas.Identity.Pages.Account
 
         public async Task<IActionResult> OnPostAsync(string returnUrl = null)
         {
-            returnUrl = returnUrl ?? Url.Content("/Home/Index");
+            returnUrl = returnUrl ?? Url.Content("/FileUploadCrud/Solicitud");
             ExternalLogins = (await _signInManager.GetExternalAuthenticationSchemesAsync()).ToList();
             if (ModelState.IsValid)
             {

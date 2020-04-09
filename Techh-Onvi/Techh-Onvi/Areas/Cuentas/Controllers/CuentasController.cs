@@ -15,7 +15,7 @@ using Techh_Onvi.Models;
 namespace Techh_Onvi.Areas.Cuentas.Controllers
 {
     [Area("Cuentas")]
-    [Authorize]
+    [Authorize(Roles = "Admin")]
     public class CuentasController : Controller
     {
         private LCuenta _cuenta;
@@ -23,10 +23,12 @@ namespace Techh_Onvi.Areas.Cuentas.Controllers
         private SignInManager<IdentityUser> _signInManager;
         private static DataPaginador<TCuentas> models;
         private static IdentityError identityError;
+        private IWebHostEnvironment _hostingEnviroment;
         private ApplicationDbContext _context;
 
-        public CuentasController(ApplicationDbContext context, SignInManager<IdentityUser> signInManager, IWebHostEnvironment environment)
+        public CuentasController(ApplicationDbContext context, SignInManager<IdentityUser> signInManager, IWebHostEnvironment environment, IWebHostEnvironment hostingEnvironment)
         {
+            _hostingEnviroment = hostingEnvironment;
             _signInManager = signInManager;
             lcliente = new LClientes(context);
             _cuenta = new LCuenta(context, environment);
@@ -113,6 +115,30 @@ namespace Techh_Onvi.Areas.Cuentas.Controllers
         {
             identityError = _cuenta.DeleteCuenta(CuentaID);
             return JsonConvert.SerializeObject(identityError);
+        }
+
+        public async Task<IActionResult> Export()
+        {
+            var list = new List<String[]>();
+            if (!models.List.Equals(0))
+            {
+                foreach (var item in models.List)
+                {
+                    String[] listData =
+                    {
+                        
+                        item.CuentaID.ToString(),
+                        item.Numero_Cuenta,
+                        item.Estado.ToString(),
+                        item.ClienteID.ToString(),
+                    };
+                    list.Add(listData);
+                }
+
+            }
+            String[] title = { "ID", "Numero de Cuenta", "Estado", "Clientes" };
+            var export = new ExportData(_hostingEnviroment, list, title, "Cuentas.xlsx", "Cuentas");
+            return await export.ExportExcelAsync();
         }
 
     }

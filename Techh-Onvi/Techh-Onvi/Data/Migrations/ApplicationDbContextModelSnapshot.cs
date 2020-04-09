@@ -162,12 +162,10 @@ namespace Techh_Onvi.Data.Migrations
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserLogin<string>", b =>
                 {
                     b.Property<string>("LoginProvider")
-                        .HasColumnType("nvarchar(128)")
-                        .HasMaxLength(128);
+                        .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("ProviderKey")
-                        .HasColumnType("nvarchar(128)")
-                        .HasMaxLength(128);
+                        .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("ProviderDisplayName")
                         .HasColumnType("nvarchar(max)");
@@ -204,12 +202,10 @@ namespace Techh_Onvi.Data.Migrations
                         .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("LoginProvider")
-                        .HasColumnType("nvarchar(128)")
-                        .HasMaxLength(128);
+                        .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("Name")
-                        .HasColumnType("nvarchar(128)")
-                        .HasMaxLength(128);
+                        .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("Value")
                         .HasColumnType("nvarchar(max)");
@@ -217,6 +213,41 @@ namespace Techh_Onvi.Data.Migrations
                     b.HasKey("UserId", "LoginProvider", "Name");
 
                     b.ToTable("AspNetUserTokens");
+                });
+
+            modelBuilder.Entity("Techh_Onvi.Areas.Clientes.Models.Prueba", b =>
+                {
+                    b.Property<int>("ClienteID")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("Apellido")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Cedula")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Direccion")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<bool>("Estado")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("Nombre")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Telefono")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("ClienteID");
+
+                    b.ToTable("_prueba");
                 });
 
             modelBuilder.Entity("Techh_Onvi.Areas.Clientes.Models.TClientes", b =>
@@ -254,6 +285,29 @@ namespace Techh_Onvi.Data.Migrations
                     b.ToTable("_TCliente");
                 });
 
+            modelBuilder.Entity("Techh_Onvi.Areas.Clients.Models.N_Clientes", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("Apellido")
+                        .HasColumnName("varchar(50)")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Nombre")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Solicitud")
+                        .HasColumnName("varchar(50)")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("_Clientes");
+                });
+
             modelBuilder.Entity("Techh_Onvi.Areas.Cuentas.Models.TCuentas", b =>
                 {
                     b.Property<int>("CuentaID")
@@ -268,6 +322,7 @@ namespace Techh_Onvi.Data.Migrations
                         .HasColumnType("bit");
 
                     b.Property<string>("Numero_Cuenta")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("CuentaID");
@@ -275,6 +330,77 @@ namespace Techh_Onvi.Data.Migrations
                     b.HasIndex("ClienteID");
 
                     b.ToTable("_TCuenta");
+                });
+
+            modelBuilder.Entity("Techh_Onvi.Models.ImageCrudClass", b =>
+                {
+                    b.Property<int>("Imgid")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("Imgname")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Imgpath")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Imgid");
+
+                    b.ToTable("Saveimg");
+                });
+
+            modelBuilder.Entity("Techh_Onvi.Models.Trasanction", b =>
+                {
+                    b.Property<int>("TransactionId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("AccountNumber")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("BankName")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Beneficiario")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("Monto")
+                        .HasColumnType("int");
+
+                    b.Property<string>("SWIFTCode")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("date")
+                        .HasColumnType("datetime2");
+
+                    b.HasKey("TransactionId");
+
+                    b.ToTable("_Trasanction");
+                });
+
+            modelBuilder.Entity("Techh_Onvi.Models.XClientes", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("Apellido")
+                        .HasColumnName("varchar(50)")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Nombre")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Solicitud")
+                        .HasColumnName("varchar(50)")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("_xclients");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>

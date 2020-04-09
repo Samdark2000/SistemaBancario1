@@ -1,0 +1,48 @@
+﻿@model Techh_Onvi.Models.ImageCrudClass
+@{
+    ViewData["Title"] = "Edit";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    <h1>Editar</h1>
+
+    <hr />
+    <div class="row">
+        <div class="col-md-4">
+            <form asp-action="Edit" method="post" asp-controller="FileUploadCrud" enctype="multipart/form-data">
+                <p>
+                    <input type="file" name="fileobj" />
+                    <input type="submit" value="Upload" />
+
+                </p>
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                <div class="form-group">
+                    <label asp-for="Imgid" class="control-label"></label>
+                    <input asp-for="Imgid" class="form-control" readonly />
+                    <span asp-validation-for="Imgid" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="Imgname" class="control-label"></label>
+                    <input asp-for="Imgname" class="form-control" readonly />
+                    <span asp-validation-for="Imgname" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="Imgpath" class="control-label"></label>
+                    <img src="~/Imagen/@Html.DisplayFor(model => model.Imgname)" height="80" width="120" />
+                    @*<input asp-for="Imgpath" class="form-control" readonly />*@
+                    <span asp-validation-for="Imgpath" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <input type="submit" value="Guardar" class="btn btn-outline-dark" />
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <div>
+        <a asp-action="Index">Volver al Listado</a>
+    </div>
+
+    @section Scripts {
+        @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+    }
+            }
+
